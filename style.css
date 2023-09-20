@@ -3,6 +3,7 @@ body {
     background: #161616;
     color: white;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -12,3 +13,4 @@ h1 {
     width: 100%;
     text-align: center;
 }
+
