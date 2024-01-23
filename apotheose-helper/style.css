@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+:root {
+  --color-primary: #fbd46d;
+  --color-primary-light: #fff5d1;
+  --color-secondary: #f5f5f5;
+  --color-dark: #262626;
+  --color-dark-light: #363636;
+  --color-light: #f5f5f5;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+  text-decoration-color: transparent;
+  color: var(--color-primary);
+  font-weight: 500;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+  background-color: var(--color-primary);  
+  color: var(--color-dark);
+  padding: 0 5px;
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+}
+
+p {
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.content p:first-child {
+  margin-top: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  text-decoration: dashed underline var(--color-primary);
+}
+
+nav a:hover {
+  color: var(--color-primary-light);
+  text-decoration-color: var(--color-primary-light);
+}
+
+.site-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-bottom: 60px;
+
+}
+
+
+
+.warning {
+  background-color: var(--color-dark-light);
+  border-left: 5px solid var(--color-primary);
+  padding: 10px 10px
+}
+
+.main-title {
+  font-size: 3.2rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: 4rem;
+  padding: 20px;
+}
+
+.secondary-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 2rem 0;
+}
+
+.secondary-title a:hover {
+  color: var(--color-primary-light);
+  text-decoration-color: var(--color-primary-light);
+}
+
+.tertiary-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-secondary);
+  margin: 2rem 0;
+  position: relative
+}
+
+.tertiary-title::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+.content {
+  padding: 0 20px;
+  border: 1px dashed var(--color-primary-light);
+}
+
