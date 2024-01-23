@@ -36,6 +36,23 @@
       <p>
         Il peut être compliqué de savoir comment travailler à plusieurs sur un projet. Surtout quand des fonctionnalités dépendent d'autres. Par exemple, vous avez besoin que le projet soit installé et configuré pour faire votre homepage (éhé sacré cerveau). Et bien dans ces cas là, mettez vous à deux sur la fonctionnalité, en pair programming. Quelques moments du genre : <em>installation</em>, <em>création</em> <em>de l'entité des user</em>, <em>installation de la première fixture</em>, <em>création de l'authentification</em>, <em>création du store</em> etc.
       </p>
+      <h3 class="tertiary-title">
+        Kikifé ? Le back ou le front ?
+      </h3>
+      <p>
+        Souvent, vous vous posez la question de si c'est le back ou le front qui doit faire telle ou telle chose. Pour obtenir la réponse il faut garder en tête que <strong>le back gère la donnée et que le front affiche la donnée.</strong> <br> 
+        Il faut aussi garder en tête que c'est tout ce qui est fait côté front peut être analysé et trouvé par des "hacker". </br />
+        L'application doit être performante.
+        <br />
+        J'ai vu trop de fois des projets ou on récupère 10000 entrée de la bdd via un endpoint d'API du back pour l'envoyer au front et ensuite faire une pagination côté front pour afficher 10 entrées par 10 entrées. C'est une mauvaise pratique. Le back doit gérer la pagination et ne renvoyer que les 10 entrées pour la page demandée à chaque fois <br />
+      </p>
+      <p>
+        Si je créé un jeu par exemple, les algorithmes doivent être côté back. Le front ne doit faire que DEMANDER des choses. "Je demande à modifier cette donnée", "Je veux bouger à droite", Le back doit répondre à ces demandes. "Ok, je modifie cette donnée", "Non tu peux pas bouger à droite".
+        <br />
+        Si le front a la capacité de décider de ces choses là on peut très facilement contourner l'application. 
+        <br />
+        C'est quasi tout le temps valable. Le front doit faire le minimum d'algo. Si vous avez un doute, demandez à votre helper d'apothéose préféré ;)
+      </p>
       <h3 class="tertiary-title">Les données</h3>
       <p>
         En phase de développement, on se fiche totalement des données présentes en BDD. Autrement dit, on n'a besoin
