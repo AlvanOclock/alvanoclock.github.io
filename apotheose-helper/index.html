@@ -51,17 +51,17 @@
         Pour
         obtenir la réponse il faut garder en tête que:<br />
         - <strong>le back gère la donnée et que le front ne fait que l'afficher</strong> <br>
-        - <strong>tout ce qui est fait côté front peut être analysé et trouvé par des "hacker"</strong> </br />
+        - <strong>tout ce qui est fait côté front peut être analysé et trouvé par des "hackers"</strong> </br />
         - <strong>l'application doit être performante et donc ne pas utiliser de ressources inutilement.</strong>
       </p>
       <p>
-        Par exemple si tu dois faire une pagination et que tu appelles un endpoint de l'API qui te renvoi tous les
+        Par exemple si tu dois faire une pagination et que tu appelles un endpoint de l'API qui te renvoie tous les
         articles stockés en BDD, si il y en a 10000, ça veut dire que tu récupères ces 10000 articles avec tout leur
-        contenu via le réseau. Ensuite tu trouve que 10000 qui s'affichent, c'est trop, donc tu décides de faire une
+        contenu via le réseau. Ensuite tu trouves que 10000 qui s'affichent, c'est trop, donc tu décides de faire une
         pagination côté front. Ça va être encore pire, car maintenant tu demandes au navigateur de gérer un affichage
         dynamique pour 10000 entrées. <br />
         L'idée est plutôt de faire une pagination côté api et de ne renvoyer que les données utiles au client. <br />
-        Par exemple le client demande l'url <code>/api/articles?page=1</code> et le serveur lui renvoi les 10 premiers
+        Par exemple le client demande l'url <code>/api/articles?page=1</code> et le serveur lui renvoie les 10 premiers
         articles avec en plus le nombre total d'articles et le nombre total de page. Comme ça, le front peut afficher
         ces 10 articles mais aussi la pagination. Et si l'utilisateur clique sur la page 2, le front demande
         <code>/api/articles?page=2</code> et le serveur lui renvoi les 10 articles suivants. <br />
@@ -99,7 +99,7 @@
         - <code>bin/console doctrine:fixtures:load</code><br />
       </p>
       <p>
-        Côté <strong>Directus</strong>, vous avez une bdd partagée, et pas de fixtures possible. Mais la BDD va
+        Côté <strong>Directus</strong>, vous avez une bdd partagée, et pas de fixtures possibles. Mais la BDD va
         peut-être changer pendant
         le projet, alors il ne faut mettre aucune vraie donnée dans la BDD avant la démo de projet. Car vous risquez de
         devoir modifier la
@@ -112,7 +112,7 @@
       <p>
         Organisation conseillée : <br />
         - <code>master</code>: c'est la branche de référence pour la production. Tout doit être fonctionnel dessus.
-        Uniquement la branche de <code>dev</code> à le droit d'être mergée dessus, quand elle n'a plus d'erreur. <br />
+        Uniquement la branche de <code>dev</code> a le droit d'être mergée dessus, quand elle n'a plus d'erreur. <br />
         - <code>dev</code>: c'est la branche de référence pour le développement, toute fonctionnalité terminée doit être
         mergée dans cette branche après avoir été testée.<br />
         - <code>brancheFonctionnalité1</code>: une branche à chaque fois qu'on commence une fonctionnalité (header,
@@ -215,7 +215,7 @@
       </p>
       <h3 class="tertiary-title">Svelte/Directus</h3>
       <p>
-        Ici tout est géré par Directus déjà. Vous avez donc les endpoints nécessaire à la connexion spécifiée dans la <a
+        Ici tout est déjà géré par Directus. Vous avez donc les endpoints nécessaires à la connexion spécifiée dans la <a
           href="https://docs.directus.io/reference/authentication.html" target="_blank">doc ici</a>. Pas de soucis de
         CORS.
       </p>
@@ -250,7 +250,7 @@
         <em>"Mais pourquoi j'ai pas le soucis avec Insomnia/Postman ?"</em> => Parce que ces outils ne sont pas soumis
         aux CORS. En fait ce n'est pas directement le serveur qui bloque un nom de domaine ou qui autorise un nom
         de domaine. C'est une implémentation dans le navigateur qui voit que le serveur lui met un en tête pour
-        autoriser ou non une origine. Donc si le client qui demande une ressource qui n'est pas autorisé, le navigateur
+        autoriser ou non une origine. Donc si le client qui demande une ressource qui n'est pas autorisée, le navigateur
         bloque la requête. Insomnia ou Postman ne font pas cette implémentation et se fichent complètement du header.
         <br />
         Avec cette explication, vous devez aussi comprendre que les CORS, à part être ennuyeux, ne protègent pas grand
@@ -267,7 +267,7 @@
         Suivez la doc et tout devrait bien se passer.
       </p>
       <p>
-        Pour le début, je vous conseil de laisser tout ouvert et définir <code>allow_origin: ["*"]</code> et
+        Pour le début, je vous conseille de laisser tout ouvert et définir <code>allow_origin: ["*"]</code> et
         <code>allow_headers: ["*"]</code> dans le fichier <code>nelmio_cors.yaml</code>.<br />
         Une fois en prod, vous pourrez changer le <code>allow_origin</code> pour n'autoriser que le domaine de votre
         frontend.
@@ -321,10 +321,10 @@
         puis dans "My Inbox" sélectionner l'intégration voulue par rapport à ta techno. MailTrap te fournit la
         configuration à copier/coller dans ton projet. Tu n'as plus qu'à tester l'envoi d'un mail.
       </p>
-      <h3 class="tertiary-title">Qui envoi les mails ?</h3>
+      <h3 class="tertiary-title">Qui envoie les mails ?</h3>
       <p>
-        Pour un projet <strong>Symfony/React</strong> c'est <strong>Symfony</strong> qui envoi les mails.
-        Pour un projet <strong>Directus/Svelte</strong>, c'est <strong>Directus</strong> qui envoi les mails, voir la
+        Pour un projet <strong>Symfony/React</strong> c'est <strong>Symfony</strong> qui envoie les mails.
+        Pour un projet <strong>Directus/Svelte</strong>, c'est <strong>Directus</strong> qui envoie les mails, voir la
         marche à suivre ici : <a href="https://learndirectus.com/how-to-send-an-email"
           target="_blank">https://learndirectus.com/how-to-send-an-email</a>
       </p>
@@ -371,7 +371,7 @@
           target="_blank">Base64</a>.<br />
       </p>
       <p>
-        Côté Symfony, il faut donc développer un endpoint capable classique qui récupère des données en POST. Mais vu
+        Côté Symfony, il faut donc développer un endpoint classique qui est capable de récupèrer des données en POST. Mais vu
         que l'image qu'il va récupérer n'est qu'une chaîne de caractère, il va falloir être capable de recréer une image
         avec.
         Soit directement dans le controller, soit dans un service. Si vous voulez des pistes sur comment faire ça, cette
@@ -382,7 +382,7 @@
         nous intéresse. On vous laisse essayer d'adapter ça de votre côté ;)
       </p>
       <p class="warning">
-        Attention, vu qu'on recrée une image à partir du base64, on ne stock pas le base64 en bdd, mais le chemin vers l'image qu'on a créé.
+        Attention, vu qu'on recrée une image à partir du base64, on ne stocke pas le base64 en bdd, mais le chemin vers l'image qu'on a créée.
       </p>
       <p>
         Pour tester avec Insomnia, Postman ou autre, utilisez <a href="https://www.base64-image.de/"
@@ -403,8 +403,8 @@
         Vous pouvez regarder la doc ici <a href="https://docs.directus.io/reference/files.html"
           target="_blank">https://docs.directus.io/reference/files.html</a> qui indique comment upload des fichiers via
         l'API. Pas de base64 ici, mais du <code>multipart/form-data</code>. Pour envoyer vos données de formulaire pour
-        l'ajout d'un article de blog, il faudra le faire en deux fois donc. Une première requête qui envoi les données
-        textuelles (titre, contenu, catégories), et une autre qui envoi seulement l'image en la liant à l'article de
+        l'ajout d'un article de blog, il faudra le faire en deux fois donc. Une première requête qui envoie les données
+        textuelles (titre, contenu, catégories), et une autre qui envoie seulement l'image en la liant à l'article de
         blog. L'id de l'article ayant été récupéré à la fin de la requête précédente.
       </p>
 
@@ -444,8 +444,8 @@
         - Mon utilisateur soumet un form pour envoyer un message dans un chat <br />
         - Le front émet un évènement avec un label (`newMessage` par exemple) avec le contenu du message vers le serveur
         de websocket <br />
-        - Le serveur de websocket reçoit l'évènement `newMessage` et l'envoi à tous les utilisateurs concernés <br />
-        - (optionnel) Le serveur de websocket envoi une requête API au back pour enregistrer le message en BDD
+        - Le serveur de websocket reçoit l'évènement `newMessage` et l'envoie à tous les utilisateurs concernés <br />
+        - (optionnel) Le serveur de websocket envoie une requête API au back pour enregistrer le message en BDD
         - Le front reçoit l'évènement `newMessage` et l'affiche dans le chat<br />
         - (optionnel) Quand l'utilisateur recharge la page, le front va faire une requête API pour récupérer tous les
         messages en BDD et les afficher <br />
@@ -456,7 +456,7 @@
     </h2>
     <div class="content">
       <p>Et voilà, on a fait un bon tour de ce qui peut te poser problème. Pour le reste, à toi de te creuser les
-        méninges pour trouver des solutions à tes problèmes. Bien sur tu peux demander de l'aide et ouvrir une issue sur le repo Projects de ton GitHug ;).Courage !</p>
+        méninges pour trouver des solutions à tes problèmes. Bien sûr tu peux demander de l'aide et ouvrir une issue sur le repo Projects de ton GitHug ;).Courage !</p>
     </div>
   </div>
 
