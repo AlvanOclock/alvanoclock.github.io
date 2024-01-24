@@ -38,7 +38,8 @@
         Il peut être compliqué de savoir comment travailler à plusieurs sur un projet. Surtout quand des fonctionnalités
         dépendent d'autres. Par exemple, vous avez besoin que le projet soit installé et configuré pour faire votre
         homepage (éhé sacré cerveau). Eh bien dans ces cas-là, mettez-vous à deux sur la fonctionnalité, en pair
-        programming. Quelques moments du genre : <em>installation</em>, <em>création</em> <em>de l'entité des users</em>,
+        programming. Quelques moments du genre : <em>installation</em>, <em>création</em> <em>de l'entité des
+          users</em>,
         <em>installation de la première fixture</em>, <em>création de l'authentification</em>, <em>création du
           store</em>, etc.
       </p>
@@ -46,7 +47,8 @@
         Kikifé ? Le back ou le front ?
       </h3>
       <p>
-        Souvent, vous vous posez la question de savoir si c'est le back ou le front qui doit faire telle ou telle chose. Pour
+        Souvent, vous vous posez la question de savoir si c'est le back ou le front qui doit faire telle ou telle chose.
+        Pour
         obtenir la réponse il faut garder en tête que:<br />
         - <strong>le back gère la donnée et que le front ne fait que l'afficher</strong> <br>
         - <strong>tout ce qui est fait côté front peut être analysé et trouvé par des "hacker"</strong> </br />
@@ -97,8 +99,10 @@
         - <code>bin/console doctrine:fixtures:load</code><br />
       </p>
       <p>
-        Côté <strong>Directus</strong>, vous avez une bdd partagée, et pas de fixtures possible. Mais la BDD va peut-être changer pendant
-        le projet, alors il ne faut mettre aucune vraie donnée dans la BDD avant la démo de projet. Car vous risquez de devoir modifier la
+        Côté <strong>Directus</strong>, vous avez une bdd partagée, et pas de fixtures possible. Mais la BDD va
+        peut-être changer pendant
+        le projet, alors il ne faut mettre aucune vraie donnée dans la BDD avant la démo de projet. Car vous risquez de
+        devoir modifier la
         structure et donc complètement réécrire toutes les données que vous auriez rentrées.
       </p>
       <p>
@@ -162,14 +166,22 @@
         Côté Svelte, pas besoin de coder un back-office particulier, Directus gérant cette partie.
       </p>
       <p class="warning">
-        Quand je suis en mode API, je ne réfléchis pas en termes de page. Par exemple côté Symfony je ne dois pas créer un unique endpoint qui va permettre de renvoyer TOUTES les données de la page d'accueil. Je dois faire des endpoints "granulaires" qui renvoient des données pour une ressource, une entité. Si la page d'accueil a 3 sections : <br />
+        Quand je suis en mode API, je ne réfléchis pas en termes de page. Par exemple côté Symfony je ne dois pas créer
+        un unique endpoint qui va permettre de renvoyer TOUTES les données de la page d'accueil. Je dois faire des
+        endpoints "granulaires" qui renvoient des données pour une ressource, une entité. Si la page d'accueil a 3
+        sections : <br />
         - une section avec les 3 derniers articles de blog <br />
         - une section avec les 3 derniers produits <br />
         - une section avec les 5 offres d'emplois <br />
-        Le back doit faire un endpoint pour chacun et le front doit faire 3 appels API pour récupérer les données. D'ailleurs, le plus simple est que le backend fasse un endpoint paramétrable pour le front puisse spécifier combien d'articles ou de produit il veut récupérer.<br />
+        Le back doit faire un endpoint pour chacun et le front doit faire 3 appels API pour récupérer les données.
+        D'ailleurs, le plus simple est que le backend fasse un endpoint paramétrable pour le front puisse spécifier
+        combien d'articles ou de produit il veut récupérer.<br />
       </p>
       <p class="warning">
-        Attention aussi côté React ou Svelte. Si j'ai une page qui liste des articles par exemple et que je veux pouvoir cliquer sur un article et accéder à son détail. Je dois faire deux pages différentes avec deux appels API différents. Un qui va lister les articles et un qui va être déclenché à chaque fois qu'on va sur le détail d'un article. On ne réutilise pas les données de la liste pour le détail. 
+        Attention aussi côté React ou Svelte. Si j'ai une page qui liste des articles par exemple et que je veux pouvoir
+        cliquer sur un article et accéder à son détail. Je dois faire deux pages différentes avec deux appels API
+        différents. Un qui va lister les articles et un qui va être déclenché à chaque fois qu'on va sur le détail d'un
+        article. On ne réutilise pas les données de la liste pour le détail.
       </p>
 
       <h3 class="tertiary-title">NOT API</h3>
@@ -240,7 +252,8 @@
         <br />
         Avec cette explication, vous devez aussi comprendre que les CORS, à part être ennuyeux, ne protègent pas grand
         chose... étant donné qu'on peut très bien appeler des endpoints api via des outils comme Insomnia ou Postman ou
-        même des scripts en ligne de commande. On va dire que le seul intérêt, c'est que quelqu'un ne pourra pas coder un
+        même des scripts en ligne de commande. On va dire que le seul intérêt, c'est que quelqu'un ne pourra pas coder
+        un
         front qui se sert de notre API et le mettre en ligne sur son propre domaine.
       </p>
 
@@ -349,7 +362,8 @@
         une seule, la plus "simple" à mettre en place. Si c'est juste des uploads côté back-office, donc côté Symfony,
         voir la section "Symfony" plus bas.</p>
       <p>
-        Pour envoyer une image en même temps que d'autres données en JSON, on n'a pas d'autres choix que transformer notre
+        Pour envoyer une image en même temps que d'autres données en JSON, on n'a pas d'autres choix que transformer
+        notre
         image en texte. Pour ça on utilise le format <a href="https://fr.wikipedia.org/wiki/Base64"
           target="_blank">Base64</a>.<br />
       </p>
@@ -369,7 +383,8 @@
           target="_blank">https://www.base64-image.de/</a> pour convertir une image en base64 et
         copier/coller le résultat dans le body de votre requête.
       </p>
-      <p>Maintenant que c'est fait côté Symfony. Il ne reste plus qu'à gérer côté React. Vous avez plusieurs pistes ici :
+      <p>Maintenant que c'est fait côté Symfony. Il ne reste plus qu'à gérer côté React. Vous avez plusieurs pistes ici
+        :
         <a href="https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react"
           target="_blank">https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react</a>
         soit en codant la fonctionnalité vous même soit en utilisant des librairies toutes faites. On vous laisse tenter
@@ -433,7 +448,10 @@
     <h2 class="secondary-title" id="end">
       <a href="#end"># The End!</a>
     </h2>
-    <p>Et voilà, on a fait un bon tour de ce qui peut te poser problème. Pour le reste, à toi de te creuser les méninges pour trouver des solutions à tes problèmes. Courage !</p>
+    <div class="content">
+      <p>Et voilà, on a fait un bon tour de ce qui peut te poser problème. Pour le reste, à toi de te creuser les
+        méninges pour trouver des solutions à tes problèmes. Courage !</p>
+    </div>
   </div>
 
 
