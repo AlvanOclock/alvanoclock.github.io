@@ -23,40 +23,67 @@
       <a href="#temps-reel">Temps réel</a>
     </nav>
     <p>
-      Tu retrouveras ici toutes les recommandations pour une bonne apothéose. Tu dois quasi les connaître par coeur et
-      comprendre pourquoi ce sont des bonnes recommandations.
+      Tu retrouveras ici des conseils et aides pour t'aider au mieux sur tes problématiques pendant l'apothéose. Tu n'es
+      pas obligé de tout lire d'un coup, tu peux lire la partie <a href="#conseils-generaux">Conseils généraux</a> et
+      revenir plus tard sur les autres parties au moment ou tu en auras besoin. Bonne lecture !
     </p>
 
     <h2 class="secondary-title" id="conseils-generaux">
       <a href="#conseils-generaux"># Conseils généraux</a>
     </h2>
     <div class="content">
-      <p>Voici quelques conseils généraux importants à prendre ne compte.</p>
+      <p>Voici quelques conseils généraux importants à prendre en compte.</p>
       <h3 class="tertiary-title">Le partage du travail</h3>
       <p>
-        Il peut être compliqué de savoir comment travailler à plusieurs sur un projet. Surtout quand des fonctionnalités dépendent d'autres. Par exemple, vous avez besoin que le projet soit installé et configuré pour faire votre homepage (éhé sacré cerveau). Et bien dans ces cas là, mettez vous à deux sur la fonctionnalité, en pair programming. Quelques moments du genre : <em>installation</em>, <em>création</em> <em>de l'entité des user</em>, <em>installation de la première fixture</em>, <em>création de l'authentification</em>, <em>création du store</em> etc.
+        Il peut être compliqué de savoir comment travailler à plusieurs sur un projet. Surtout quand des fonctionnalités
+        dépendent d'autres. Par exemple, vous avez besoin que le projet soit installé et configuré pour faire votre
+        homepage (éhé sacré cerveau). Et bien dans ces cas là, mettez vous à deux sur la fonctionnalité, en pair
+        programming. Quelques moments du genre : <em>installation</em>, <em>création</em> <em>de l'entité des user</em>,
+        <em>installation de la première fixture</em>, <em>création de l'authentification</em>, <em>création du
+          store</em> etc.
       </p>
       <h3 class="tertiary-title">
         Kikifé ? Le back ou le front ?
       </h3>
       <p>
-        Souvent, vous vous posez la question de si c'est le back ou le front qui doit faire telle ou telle chose. Pour obtenir la réponse il faut garder en tête que <strong>le back gère la donnée et que le front affiche la donnée.</strong> <br> 
-        Il faut aussi garder en tête que c'est tout ce qui est fait côté front peut être analysé et trouvé par des "hacker". </br />
-        L'application doit être performante.
-        <br />
-        J'ai vu trop de fois des projets ou on récupère 10000 entrée de la bdd via un endpoint d'API du back pour l'envoyer au front et ensuite faire une pagination côté front pour afficher 10 entrées par 10 entrées. C'est une mauvaise pratique. Le back doit gérer la pagination et ne renvoyer que les 10 entrées pour la page demandée à chaque fois <br />
+        Souvent, vous vous posez la question de si c'est le back ou le front qui doit faire telle ou telle chose. Pour
+        obtenir la réponse il faut garder en tête que :<br />
+        - <strong>le back gère la donnée et que le front ne fait que l'afficher</strong> <br>
+        - <strong>tout ce qui est fait côté front peut être analysé et trouvé par des "hacker"</strong> </br />
+        - <strong>l'application doit être performante et donc ne pas utiliser de ressources inutilement.</strong>
       </p>
       <p>
-        Si je créé un jeu par exemple, les algorithmes doivent être côté back. Le front ne doit faire que DEMANDER des choses. "Je demande à modifier cette donnée", "Je veux bouger à droite", Le back doit répondre à ces demandes. "Ok, je modifie cette donnée", "Non tu peux pas bouger à droite".
-        <br />
-        Si le front a la capacité de décider de ces choses là on peut très facilement contourner l'application. 
-        <br />
-        C'est quasi tout le temps valable. Le front doit faire le minimum d'algo. Si vous avez un doute, demandez à votre helper d'apothéose préféré ;)
+        Par exemple si tu dois faire une pagination et que tu appelle un endpoint de l'API qui te renvoi tous les
+        articles stockés en BDD, si il y en a 10000, ça veut dire que tu récupère ces 10000 articles avec tout leur
+        contenu via le réseau. Ensuite tu trouve que 10000 qui s'affichent, c'est trop, donc tu décide de faire une
+        pagination côté front. Ça va être encore pire, car maintenant tu demande au navigateur de gérer un affichage
+        dynamique pour 10000 entrées. <br />
+        L'idée est plutôt de faire une pagination côté api et de ne renvoyer que les données utiles au client. <br />
+        Par exemple le client demande l'url <code>/api/articles?page=1</code> et le serveur lui renvoi les 10 premiers
+        articles avec en plus le nombre total d'articles et le nombre total de page. Comme ça, le front peut afficher
+        ces 10 articles mais aussi la pagination. Et si l'utilisateur clique sur la page 2, le front demande
+        <code>/api/articles?page=2</code> et le serveur lui renvoi les 10 articles suivants. <br />
+      </p>
+      <p>
+        Question sécurité des données et de la logique d'application, on va maintenant prendre l'exemple d'un jeu (mais
+        ça marche tout pour type d'appli !). <br />
+        Imaginons que tu as un jeu en front avec un score calculé à la fin du jeu en fonction des actions de
+        l'utilisateur. Si ce calcul est fait côté front, il peut être très simple pour un "hacker" de modifier les
+        variables pour se mettre un score énorme. <br /> Il faut se dire que le front ne décide de rien tout seul. Il
+        doit faire des "demandes" au backend et c'est le backend qui fait les calculs pour répondre au front. <br />
+      </p>
+      <p>
+        Pour clarifier ce point prenons l'exemple d'un jeu type Quiz. <br />
+        Le backend ne doit envoyer que le tableau de questions avec les réponses possibles, mais pas les bonnes
+        réponses. Si les bonnes réponses sont envoyées, il suffit de regarder le network pour trouver la réponse. <br />
+        Donc la vérification des réponses doit être faite côté backend avec soit un appel API à chaque réponse de
+        l'utilisateur pour avoir un retour direct, soit un appel API à la fin du quiz pour avoir le score final. <br />
       </p>
       <h3 class="tertiary-title">Les données</h3>
       <p>
         En phase de développement, on se fiche totalement des données présentes en BDD. Autrement dit, on n'a besoin
-        d'aucun vrai contenu pour développer, que des données de test. Côté Symfony il faudra mettre en place des
+        d'aucun vrai contenu pour développer, que des données de test. Côté <strong>Symfony</strong> il faudra mettre en
+        place des
         fixtures dès le début du projet, dès que des entités seront en place. <strong>Interdit de se passer les bases de
           données par export SQL</strong>, c'est contraire au principe de migration et peut générer des erreurs. <br />
         Quand je récupère un projet Symfony, il doit être fonctionnel avec des datas et utilisateurs de test après avoir
@@ -70,12 +97,13 @@
         - <code>bin/console doctrine:fixtures:load</code><br />
       </p>
       <p>
-        Côté Directus, vous avez une bdd partagée, et pas de fixtures possible. Mais la BDD va peut être changer pendant
+        Côté <strong>Directus</strong>, vous avez une bdd partagée, et pas de fixtures possible. Mais la BDD va peut
+        être changer pendant
         le projet, alors aucune vraie donnée dans la BDD avant la démo de projet. Car vous risquez de devoir modifier la
         structure et donc complètement réécrire toutes les données que vous auriez rentrées.
       </p>
       <p>
-        De manière globale, 10/20 entrées par entités suffisent pour développer.
+        De manière globale, <strong>10/20 entrées par entités suffisent pour développer</strong>.
       </p>
       <h3 class="tertiary-title">Git</h3>
       <p>
@@ -98,7 +126,16 @@
         - <code>git commit -m "wip: MailHog configuration not finished"</code> <br />
       </p>
       <p>
-        Pour merger, soit vous le fait en local et vous poussez ensuite sur GitHub, soit vous faites une pull request sur GitHub. Au choix. La deuxième est plus sympa pour montrer aux autres ce que vous avez fait avant de mettre sur dev. Une fois votre fonctionnalité terminée, supprimez votre branche localement et sur GitHub, et repartez sur une nouvelle depuis dev.
+        Pour merger, soit vous le fait en local et vous poussez ensuite sur GitHub, soit vous faites une pull request
+        sur GitHub. Au choix. La deuxième est plus sympa pour montrer aux autres ce que vous avez fait avant de mettre
+        sur dev. Une fois votre fonctionnalité terminée, supprimez votre branche localement et sur GitHub, et repartez
+        sur une nouvelle depuis dev.
+      </p>
+      <p class="warning">
+        Petite astuce : <br />
+        Avant de mettre vos branche de fonctionnalité sur la branche de dev, faites un merge de dev sur votre branche.
+        Vous pourrez réglez les potentiels conflits sur votre branche à vous avant de faire votre pull request. Ce qui
+        fait que votre pull request passera à coup sur.
       </p>
     </div>
 
@@ -117,13 +154,30 @@
       </p>
       <p>Pour Directus, pas de repository étant donné qu'il s'agit d'un site distant. Il permet de créer une base de
         donnée et automatiquement des endpoints d'API via une interface en ligne.</p>
-      <p>Pour Symfony cela signifie donc que de manière basique le projet back n'affichera pas de html. Il ne retournera
-        que du json. Pour autant, il faudra certainement un back-office qui lui sera donc fait en twig.</p>
-      <p>Côté Svelte, pas besoin de coder un back-office particulier, Directus gérant cette partie.</p>
+      <p>
+        Pour Symfony cela signifie donc que de manière basique le projet back n'affichera pas de html. Il ne retournera
+        que du json. Pour autant, il faudra certainement un back-office qui lui sera donc fait en twig. Mais il arrivera
+        dans un deuxième temps.
+      </p>
+      <p>
+        Côté Svelte, pas besoin de coder un back-office particulier, Directus gérant cette partie.
+      </p>
+      <p class="warning">
+        Quand je suis en mode API, je ne réfléchis pas en terme de page. Par exemple côté Symfony je ne dois pas créé un unique endpoint qui va permettre de renvoyer TOUTES les données de la page d'accueil. Je dois faire des endpoints "granulaires" qui renvoi des données pour une ressource, une entité. Si la page d'accueil a 3 sections : <br />
+        - une section avec les 3 derniers articles de blog <br />
+        - une section avec les 3 derniers produits <br />
+        - une section avec les 5 offres d'emplois <br />
+        Le back doit faire un endpoint pour chacun et le front doit faire 3 appels API pour récupérer les données. D'ailleurs, le plus simple c'est que le backend fasse un endpoint paramétrable pour le front puisse spécifier combien d'articles ou de produit il veut récupérer.<br />
+      </p>
+      <p class="warning">
+        Attention aussi côté React ou Svelte. Si j'ai une page qui liste des articles par exemple et que je veux pouvoir cliquer sur un article et accéder à son détail. Je dois faire deux pages différentes avec deux appels API différents. Un qui va lister les articles et un qui va être déclenché à chaque fois qu'on va sur le détail d'un article. On ne réutilise pas les données de la liste pour le détail. 
+      </p>
 
       <h3 class="tertiary-title">NOT API</h3>
-      <p>Si l'équipe n'est composée que de Symfony, le projet ne devra donc pas être fait en mode API. On code donc de
-        manière classique avec des templates twig.</p>
+      <p>
+        Si l'équipe n'est composée que de Symfony, le projet ne devra donc pas être fait en mode API. On code donc de
+        manière classique avec des templates twig.
+      </p>
     </div>
 
     <h2 class="secondary-title" id="authentification">
@@ -306,18 +360,19 @@
         avec.
         Soit directement dans le controller, soit dans un service. Si vous voulez des pistes sur comment faire ça, cette
         issue sur StackOverflow aide beaucoup : <a
-          href="https://stackoverflow.com/questions/55124010/base64-image-to-image-file-with-symfony-and-vichuploader" target="_blank">https://stackoverflow.com/questions/55124010/base64-image-to-image-file-with-symfony-and-vichuploader</a>.
+          href="https://stackoverflow.com/questions/55124010/base64-image-to-image-file-with-symfony-and-vichuploader"
+          target="_blank">https://stackoverflow.com/questions/55124010/base64-image-to-image-file-with-symfony-and-vichuploader</a>.
         Ici VichUploader ne nous intéresse pas, ce sont seulement les deux services et comment ils sont utilisés qui
         nous intéresse. On vous laisse essayer d'adapter ça de votre côté ;)
       </p>
       <p>
-        Pour tester avec Insomnia, Postman ou autre, utilisez <a
-          href="https://www.base64-image.de/" target="_blank">https://www.base64-image.de/</a> pour convertir une image en base64 et
+        Pour tester avec Insomnia, Postman ou autre, utilisez <a href="https://www.base64-image.de/"
+          target="_blank">https://www.base64-image.de/</a> pour convertir une image en base64 et
         copier/coller le résultat dans le body de votre requête.
       </p>
       <p>Maintenant que c'est fait côté Symfony. Il ne reste plus qu'à gérer côté React.Vous avez plusieurs pistes ici :
-        <a
-          href="https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react" target="_blank">https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react</a>
+        <a href="https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react"
+          target="_blank">https://stackoverflow.com/questions/47176280/how-to-convert-files-to-base64-in-react</a>
         soit en codant la fonctionnalité vous même soit en utilisant des librairies toutes faites. On vous laisse tenter
         ! <br />
         Envoyez donc votre image en base64 dans le body de votre requête POST et ça devrait marcher comme sur des
@@ -336,9 +391,10 @@
       <h3 class="tertiary-title">Symfony</h3>
       <p>
         Pour tout upload d'image directement depuis Symfony vous avez des indications ici : <a
-          href="https://symfony.com/doc/current/controller/upload_file.html" target="_blank">https://symfony.com/doc/current/controller/upload_file.html</a>.
-        Ça propose dès le début de plutôt utiliser <a
-          href="https://github.com/dustin10/VichUploaderBundle" target="_blank">https://github.com/dustin10/VichUploaderBundle</a>
+          href="https://symfony.com/doc/current/controller/upload_file.html"
+          target="_blank">https://symfony.com/doc/current/controller/upload_file.html</a>.
+        Ça propose dès le début de plutôt utiliser <a href="https://github.com/dustin10/VichUploaderBundle"
+          target="_blank">https://github.com/dustin10/VichUploaderBundle</a>
         plutôt que d'essayer de tout faire à la main. Tout étant précisément indiqué dans la doc, on ne détaillera pas
         plus la manip ici.
     </div>
@@ -352,20 +408,27 @@
       </h3>
       <p>
         Par exemple, je voudrais un système de chat ou de notifications.
-        <br /> 
-        Pour ça le plus simple c'est d'utiliser <a href="https://socket.io/" target="blank">Socket.io</a>. C'est une librairie qui permet de faire du temps réel. C'est du NodeJS, mais la prise en main n'est pas trop complexe et la création d'un chat (sans stockage des messages) se fait rapidement.
+        <br />
+        Pour ça le plus simple c'est d'utiliser <a href="https://socket.io/" target="blank">Socket.io</a>. C'est une
+        librairie qui permet de faire du temps réel. C'est du NodeJS, mais la prise en main n'est pas trop complexe et
+        la création d'un chat (sans stockage des messages) se fait rapidement.
       </p>
       <p>
-        Socket.io doit donc être installé sur un serveur Node. Un serveur Node enfait c'est juste un fichier index.js qu'on va lancer avec la commande `node index.js`. Dans ce fichier on va utiliser la librairie express pour créer un serveur HTTP. Et on va utiliser Socket.io pour créer un serveur de websocket. C'est ce serveur de websocket qui va permettre de faire du temps réel.
+        Socket.io doit donc être installé sur un serveur Node. Un serveur Node enfait c'est juste un fichier index.js
+        qu'on va lancer avec la commande `node index.js`. Dans ce fichier on va utiliser la librairie express pour créer
+        un serveur HTTP. Et on va utiliser Socket.io pour créer un serveur de websocket. C'est ce serveur de websocket
+        qui va permettre de faire du temps réel.
       </p>
       <p class="warning">
         Exemple : <br />
         - Mon utilisateur soumet un form pour envoyer un message dans un chat <br />
-        - Le front emet un évènement avec un label (`newMessage` par exemple) avec le contenu du message vers le serveur de websocket <br />
+        - Le front emet un évènement avec un label (`newMessage` par exemple) avec le contenu du message vers le serveur
+        de websocket <br />
         - Le serveur de websocket reçoit l'évènement `newMessage` et l'envoi à tous les utilisateurs concernés <br />
         - (optionnel) Le serveur de websocket envoi une requête API au back pour enregistrer le message en BDD
         - Le front reçoit l'évènement `newMessage` et l'affiche dans le chat<br />
-        - (optionnel) Quand l'utilisateur recharge la page, le front va faire une requête API pour récupérer tous les messages en BDD et les afficher <br />
+        - (optionnel) Quand l'utilisateur recharge la page, le front va faire une requête API pour récupérer tous les
+        messages en BDD et les afficher <br />
       </p>
     </div>
   </div>
