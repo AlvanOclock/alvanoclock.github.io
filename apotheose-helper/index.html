@@ -16,6 +16,7 @@
     <nav>
       <a href="#conseils-generaux">Conseils généraux</a>
       <a href="#api-or-not-api">API or not API ?</a>
+      <a href="#par-ou-commencer">Par où commencer ?</a>
       <a href="#authentification">Authentification</a>
       <a href="#cors">CORS</a>
       <a href="#emails">Emails</a>
@@ -184,16 +185,73 @@
         article. On ne réutilise pas les données de la liste pour le détail.
       </p>
 
+      <h3 class="tertiary-title">Précisions sur les routes en mode API</h3>
+      <p>
+        En mode API, il faut bien séparer les routes back des routes front. <br />
+        Il faut voir le back comme une boite à outil permettant au front de récupérer les données qui l'intéresse et
+        (d'ajouter les données qui l'intéresse aussi.). <br />
+        Le back doit donc proposer une multitude d'endpoint spécifiques et paramétrables pour que le front puisse faire
+        sa popote avec. <br />
+        Par exemple doit prévoir les GET, POST, PUT, PATCH et DELETE pour chacune de ses entités si le front en a besoin
+        évidemment. Dans l'idée aussi, pour les GET qui vont retourner un tableau d'une entité, il faudra prévoir
+        d'ajouter des paramètres pour par exemple filtrer par tel type de champ. <br />
+        C'est aussi le back qui devra prévoir l'endpoint pour faire une recherche si vous avez besoin d'un formulaire de
+        recherche.
+        <br />
+        <br />
+        De son côté, le front doit donc faire des appels API vers ces routes là.
+        <br />
+        Le router du front (mais vous l'aviez certainement déjà remarqué) n'a que des routes en GET. C'est pas lui même
+        qui va traiter en POST les données des formulaires. Il envoi les données au back qui traite les données et
+        renvoi si l'insertion en bdd s'est bien passée ou non par exemple.
+        <br />
+        Il est donc primordial que le back renvoi des codes HTTP pour chaque requête. (200: ok, 201: created, 400: bad
+        request, 404: not found, 401: unauthorized, etc.)
+      </p>
+
       <h3 class="tertiary-title">NOT API</h3>
       <p>
         Si l'équipe n'est composée que de Symfony, le projet ne devra donc pas être fait en mode API. On code donc de
         manière classique avec des templates twig.
       </p>
       <p class="warning">
-        Pour le TP c'est tout de même bien d'avoir un petit appel API quelque part. Donc soit vous utilisez une api externe pertinente pour votre projet, soit vous faites un endpoint pour ajouter des likes sur un article (par exemple), que vous appelez avec un <code>fetch()</code> au clic sur le bouton like d'un article.
+        Pour le TP c'est tout de même bien d'avoir un petit appel API quelque part. Donc soit vous utilisez une api
+        externe pertinente pour votre projet, soit vous faites un endpoint pour ajouter des likes sur un article (par
+        exemple), que vous appelez avec un <code>fetch()</code> au clic sur le bouton like d'un article.
       </p>
     </div>
 
+    <h2 class="secondary-title" id="par-ou-commencer">
+      <a href="#par-ou-commencer"># Par où commencer ?</a>
+    </h2>
+    <div class="content">
+      <h3 class="tertiary-title">Directus/Svelte</h3>
+      <p>
+        Le plus simple c'est de commencer par mettre en place la base de donnée avec Directus pour avoir quelques endpoints à disposition. Ensuite, vous pouvez commencer à coder le front en Svelte en utilisant les endpoints de Directus.
+      </p>
+      <p>
+        Côté Svelte, après l'installation de l'application, il peut être intéressant de commencer par mettre en place le système de routing et de créer les composants vides de l'application. Dans le cas d'un blog par exemple, créez directement les routes pour la page d'accueil, le listing des articles et le détail d'un article avec les composants à vide. Ensuite, vous pouvez commencer à coder les composants un par un en vous répartissant les composants entre vous.
+      </p>
+      <h3 class="tertiary-title">Symfony</h3>
+      <p>
+        Que vous soyez en mode API ou Full Symfony, il faut commencer par créer les entités et les fixtures pour avoir des données de test à afficher. Pour les entités, commencez par celle des utilisateur avec <code>make:user</code> pour être sur d'avoir tout ce qu'il faut pour le hashage de mdp etc. Créez vous 1 utilisateur admin et 1 utilisateur classique en dur dans les fixtures que chacun pourra utiliser pour se connecter. 
+        Si vous comptez faire un back-office ou êtes en full Symfo, utilisez <code>make:auth</code> pour générer le système de register et login du projet. <br />
+        En mode API, une fois que vous aurez au moins l'entité user + une autre entité avec des données et deux trois endpoints, installez le bundle d'authentification indiqué dans la section <a href="#authentification">Authentification</a> et mettez en place l'authentification.  <br />
+        Ensuite, continuez vos entités et endpoints en fonction des besoins du projet et des fronteux en priorité. Vous êtes à leur service ! :D <br />
+      </p>
+      <h3 class="tertiary-title">React</h3>
+      <p>
+        Comme pour Svelte, commencez par mettre en place le système de routing et créer les composants vides de l'application. Ensuite, vous pouvez commencer à coder les composants un par un en vous répartissant les composants entre vous. <br />
+        Côté organisation, il est recommandé d'avoir un dossier pour les composants de type "Page" et un dossier "Components" pour les composants réutilisables. <br />
+      </p>
+      <p>
+        Si vous décidez que votre application nécessaire Redux, configurez le dès le début du projet en prenant example sur les projets fait en spé React. Vous pouvez aussi décidez ne pas l'utiliser (même si conseillé) et d'utiliser le context de React ou des librairies light comme <a href="https://github.com/pmndrs/zustand">zustand</a> ou <a href="https://tanstack.com/query/v3/" target="_blank">React Query</a> pour gérer le state de l'application. <br />
+      </p>
+      <p class="warning">
+        Si vous partez sur ces derniers outils, soyez conscient que tous les tuteurs ne connaissent pas forcément ces technos et ne pourront pas forcément vous aider aussi efficacement que sur les technos vues en Spé.
+      </p>
+    </div>
+    
     <h2 class="secondary-title" id="authentification">
       <a href="#authentification"># Authentification</a>
     </h2>
@@ -215,8 +273,8 @@
       </p>
       <h3 class="tertiary-title">Svelte/Directus</h3>
       <p>
-        Ici tout est déjà géré par Directus. Vous avez donc les endpoints nécessaires à la connexion spécifiée dans la <a
-          href="https://docs.directus.io/reference/authentication.html" target="_blank">doc ici</a>. Pas de soucis de
+        Ici tout est déjà géré par Directus. Vous avez donc les endpoints nécessaires à la connexion spécifiée dans la
+        <a href="https://docs.directus.io/reference/authentication.html" target="_blank">doc ici</a>. Pas de soucis de
         CORS.
       </p>
       <h3 class="tertiary-title">Full Symfony</h3>
@@ -371,7 +429,8 @@
           target="_blank">Base64</a>.<br />
       </p>
       <p>
-        Côté Symfony, il faut donc développer un endpoint classique qui est capable de récupèrer des données en POST. Mais vu
+        Côté Symfony, il faut donc développer un endpoint classique qui est capable de récupèrer des données en POST.
+        Mais vu
         que l'image qu'il va récupérer n'est qu'une chaîne de caractère, il va falloir être capable de recréer une image
         avec.
         Soit directement dans le controller, soit dans un service. Si vous voulez des pistes sur comment faire ça, cette
@@ -382,7 +441,8 @@
         nous intéresse. On vous laisse essayer d'adapter ça de votre côté ;)
       </p>
       <p class="warning">
-        Attention, vu qu'on recrée une image à partir du base64, on ne stocke pas le base64 en bdd, mais le chemin vers l'image qu'on a créée.
+        Attention, vu qu'on recrée une image à partir du base64, on ne stocke pas le base64 en bdd, mais le chemin vers
+        l'image qu'on a créée.
       </p>
       <p>
         Pour tester avec Insomnia, Postman ou autre, utilisez <a href="https://www.base64-image.de/"
@@ -456,7 +516,8 @@
     </h2>
     <div class="content">
       <p>Et voilà, on a fait un bon tour de ce qui peut te poser problème. Pour le reste, à toi de te creuser les
-        méninges pour trouver des solutions à tes problèmes. Bien sûr tu peux demander de l'aide et ouvrir une issue sur le repo Projects de ton GitHug ;).Courage !</p>
+        méninges pour trouver des solutions à tes problèmes. Bien sûr tu peux demander de l'aide et ouvrir une issue sur
+        le repo Projects de ton GitHug ;).Courage !</p>
     </div>
   </div>
 
