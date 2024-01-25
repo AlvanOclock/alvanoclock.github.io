@@ -17,6 +17,7 @@
       <a href="#conseils-generaux">Conseils généraux</a>
       <a href="#api-or-not-api">API or not API ?</a>
       <a href="#par-ou-commencer">Par où commencer ?</a>
+      <a href="#par-ou-commencer">Front/Back prêt à communiquer</a>
       <a href="#authentification">Authentification</a>
       <a href="#cors">CORS</a>
       <a href="#emails">Emails</a>
@@ -238,6 +239,12 @@
         Si vous comptez faire un back-office ou êtes en full Symfo, utilisez <code>make:auth</code> pour générer le système de register et login du projet. <br />
         En mode API, une fois que vous aurez au moins l'entité user + une autre entité avec des données et deux trois endpoints, installez le bundle d'authentification indiqué dans la section <a href="#authentification">Authentification</a> et mettez en place l'authentification.  <br />
         Ensuite, continuez vos entités et endpoints en fonction des besoins du projet et des fronteux en priorité. Vous êtes à leur service ! :D <br />
+        <p class="warning">
+          N'oubliez pas que le front doit pouvoir utiliser votre API sans avoir à vous envoyer un message toutes les 5 minutes, alors : Documentez vos routes d'API dans un fichier ou sur un endpoint de votre api genre "/api/docs" qui permettra de savoir au front ce qu'il peut faire avec votre API.
+          <br />
+          <br />
+          Aussi, les fronteux doivent pouvoir installer votre projet sans avoir à vous demander comment faire. Donc pensez à bien documenter les étapes d'installation de votre projet dans un fichier <code>INSTALL.md</code> à la racine de votre projet. (<code>composer install, modification du .env.local, bin/console doctrine:database:create, bin/console doctrine:migrations:migrate, bin/console doctrine:fixtures:load</code> et tout autres spécificités de votre projet)
+        </p>
       </p>
       <h3 class="tertiary-title">React</h3>
       <p>
@@ -245,11 +252,54 @@
         Côté organisation, il est recommandé d'avoir un dossier pour les composants de type "Page" et un dossier "Components" pour les composants réutilisables. <br />
       </p>
       <p>
+        En attendant que le back vous mette des endpoints à disposition, vous pouvez soit utiliser des données en dur dans vos composants, soit vous créer des fichiers json avec la même structure de donnée que vous enverra le back. Ce dernier choix est intéressant car si vous vous concertez bien avec le back, il vous suffira de remplaer l'import du json par un fetch à l'API du back et votre composant marchera immédiatement si vous avez bien les même noms de propriétés <br />
+      </p>
+      <p>
         Si vous décidez que votre application nécessaire Redux, configurez le dès le début du projet en prenant example sur les projets fait en spé React. Vous pouvez aussi décidez ne pas l'utiliser (même si conseillé) et d'utiliser le context de React ou des librairies light comme <a href="https://github.com/pmndrs/zustand">zustand</a> ou <a href="https://tanstack.com/query/v3/" target="_blank">React Query</a> pour gérer le state de l'application. <br />
       </p>
       <p class="warning">
         Si vous partez sur ces derniers outils, soyez conscient que tous les tuteurs ne connaissent pas forcément ces technos et ne pourront pas forcément vous aider aussi efficacement que sur les technos vues en Spé.
       </p>
+    </div>
+
+    <h2 class="secondary-title" id="front-back-prets-a-communiquer">
+      <a href="#front-back-prets-a-communiquer"># Front/Back prêt à communiquer</a>
+    </h2>
+    <div class="content">
+      <p class="warning">
+        "Côté back on a des données et des endpoints et côté front on a des composants en durs prêt à faire de vrais appels API. On fait comment ? "
+      </p>
+
+      Plusieurs choix s'offre à toi, et on te laisse choisir en fonction de tes préférences.
+
+      <h3 class="tertiary-title">Cloner le repo du back chez chaque dev front</h3>
+      <p>
+        Ça parait relou vu comme ça, mais c'est une des méthodes les plus efficace, car si le back a bien fait son travail avec un process d'installation, il y aura 4/5 commandes à faire une fois au premier clone et puis derrière il faudra juste faire des <code>git pull</code><br />
+        Maintenant que le repo du back est chez toi, tu n'as plus qu'à faire tes appels API vers ses endpoints.
+      </p>
+      <h3 class="tertiary-title">Mettre en ligne le back sur une VM Kourou</h3>
+      <p>
+        Finalement, faire ça, c'est mettre en prod, donc autant le faire le plus tôt possible aussi pour mettre ça de côté. Ça peut être un peu long à mettre en place mais c'est une solution pratique car tous les fronteux pourront faire les appels API vers ce back.
+        <br />
+        Seul problème, il faut que celui qui ait mit en ligne sur sa VM Kourou pense à la démarrer tous les matins. Et si il n'est pas là, on a plus de back à dispo. Quelqu'un d'autres devra donc mettre en ligne.
+        <br /> 
+        Je ne détail pas ici les manips, vous avez les infos avec les cours de S08 et fiches récaps Kourou.
+      </p>
+      <h3 class="tertiary-title">Utiliser un outil comme <a href="https://ngrok.com/" target="_blank">ngrok</a></h3>
+      <p>
+        Ngrok est un outil qui permet de "mettre en ligne" un serveur local. C'est très pratique pour faire des démos ou pour que des devs front puissent faire des appels API vers un back local. <br />
+        Il suffit de lancer la commande <code>ngrok http 8000</code> pour mettre en ligne le serveur local sur le port 8000 par exemple. <br />
+        Ensuite, il suffit de donner l'url à vos collègues pour qu'ils puissent faire des appels API vers votre back local. <br />
+        <br />
+        Ce mécanisme s'appelle du tunneling. En gros, ngrok va créer un tunnel entre votre serveur local et un serveur distant. Les appels API vont donc passer par le serveur distant qui va les rediriger vers votre serveur local. <br />
+        <br />
+        Pour installer l'outil, ça se passe ici : <a href="https://ngrok.com/" target="_blank">https://ngrok.com/</a>
+        <br />
+        <br />
+        Pour info, sur le site d'ngrok, vous avez la possibilité d'avoir un nom de domaine unique gratuit, qui sera toujours le même. Une fois créé, utilisez le en lançant la commande : <code>ngrok http --domain=VOTRE-DOMAIN.ngrok-free.app 8000</code> (évidemment changez le port en fonction de sur quoi vous avez lancé votre app)
+      </p>
+
+      <h3 class="tertiary-title">Svelte/Directus</h3>
     </div>
     
     <h2 class="secondary-title" id="authentification">
