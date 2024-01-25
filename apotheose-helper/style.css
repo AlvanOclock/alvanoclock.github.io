@@ -67,8 +67,12 @@ nav {
 }
 
 nav a {
-  margin: 0 10px;
+  margin: 10px;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 5px;
   text-decoration: dashed underline var(--color-primary);
+  background-color: var(--color-dark-light);
 }
 
 nav a:hover {
@@ -84,8 +88,6 @@ nav a:hover {
 
 }
 
-
-
 .warning {
   background-color: var(--color-dark-light);
   border-left: 5px solid var(--color-primary);
@@ -97,7 +99,7 @@ nav a:hover {
   font-weight: 700;
   text-align: center;
   color: var(--color-primary);
-  margin-bottom: 4rem;
+  margin-bottom: 0;
   padding: 20px;
 }
 
